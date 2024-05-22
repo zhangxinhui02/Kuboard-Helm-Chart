@@ -1,0 +1,7 @@
+A helm chart for kuboard v3.
+
+This is NOT an official helm chart, and is in the alpha test version.
+Use it at your own risk.
+
+Kuboard: https://kuboard.cn/
+Chart Author: zhangxinhui02 (https://github.com/zhangxinhui02)

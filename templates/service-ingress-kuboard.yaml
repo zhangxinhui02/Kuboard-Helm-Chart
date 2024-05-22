@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    k8s.kuboard.cn/workload: kuboard-v3
+  labels:
+    k8s.kuboard.cn/name: kuboard-v3
+  name: kuboard-v3-webui
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  ports:
+    - name: webui
+      {{- if .Values.Service.Webui.NodePort }}
+      nodePort: {{ .Values.Service.Webui.NodePort }}
+      {{- end }}
+      port: {{ .Values.Service.Webui.Port }}
+      protocol: TCP
+      targetPort: 80
+  selector:
+    k8s.kuboard.cn/name: kuboard-v3
+  sessionAffinity: None
+  type: {{ if .Values.Service.Webui.NodePort }}NodePort{{ else }}ClusterIP{{ end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    k8s.kuboard.cn/workload: kuboard-v3
+  labels:
+    k8s.kuboard.cn/name: kuboard-v3
+  name: kuboard-v3-agentservertcp
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  ports:
+    - name: agentservertcp
+      {{- if .Values.Service.AgentServerTcp.NodePort }}
+      nodePort: {{ .Values.Service.AgentServerTcp.NodePort }}
+      {{- end }}
+      port: {{ .Values.Service.AgentServerTcp.Port }}
+      protocol: TCP
+      targetPort: 10081
+  selector:
+    k8s.kuboard.cn/name: kuboard-v3
+  sessionAffinity: None
+  type: {{ if .Values.Service.AgentServerTcp.NodePort }}NodePort{{ else }}ClusterIP{{ end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    k8s.kuboard.cn/workload: kuboard-v3
+  labels:
+    k8s.kuboard.cn/name: kuboard-v3
+  name: kuboard-v3-agentserverudp
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  ports:
+    - name: agentserverudp
+      {{- if .Values.Service.AgentServerUdp.NodePort }}
+      nodePort: {{ .Values.Service.AgentServerUdp.NodePort }}
+      {{- end }}
+      port: {{ .Values.Service.AgentServerUdp.Port }}
+      protocol: UDP
+      targetPort: 10081
+  selector:
+    k8s.kuboard.cn/name: kuboard-v3
+  sessionAffinity: None
+  type: {{ if .Values.Service.AgentServerUdp.NodePort }}NodePort{{ else }}ClusterIP{{ end }}
+
+{{- if .Values.Ingress.Enable }}
+{{- if not .Values.Ingress.Host }}
+{{ fail "'Ingress.Host' is required while 'Ingress.Enable' has benn set to 'true'." }}
+{{- end }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kuboard-v3
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  {{- if .Values.Ingress.IngressClass }}
+  ingressClassName: {{ .Values.Ingress.IngressClass | quote }}
+  {{- end }}
+  rules:
+  - host: {{ .Values.Ingress.Host | quote }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: kuboard-v3-webui
+            port:
+              number: {{ .Values.Service.Webui.Port }}
+        path: {{ .Values.Ingress.Path | quote }}
+        pathType: {{ .Values.Ingress.PathType | quote }}
+{{- end }}

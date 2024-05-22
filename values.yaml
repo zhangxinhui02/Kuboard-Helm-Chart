@@ -1,0 +1,47 @@
+# Configure installation parameters and Kuboard running parameters.
+Config:
+  EtcdImage: swr.cn-east-2.myhuaweicloud.com/kuboard/etcd:v3.4.14
+  KuboardImage: swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard:v3.5.2.6
+  ServerLogrusLevel: info
+  AgentKey: 32b7d6572c6255211b4eec9009e4a816
+
+
+# These values will be used to set up the front-end page.
+# It is helpful when using a reverse proxy.
+Frontend:
+  Endpoint: null
+  AgentServerTcp: 30081
+  AgentServerUdp: 30082
+
+
+# Configure service of Kuboard.
+# To disable NodePort, set 'NodePort' to 'null'.
+# If NodePorts of agent server are set to 'null', the agent server will not be available
+# unless port-forward configured.
+Service:
+  Webui:
+    Port: 80
+    NodePort: null
+  AgentServerTcp:
+    Port: 10081
+    NodePort: 30081
+  AgentServerUdp:
+    Port: 10082
+    NodePort: 30082
+
+
+# Configure ingress of kuboard.
+# To specify the default ingress class, set 'IngressClass' to 'null'.
+Ingress:
+  Enable: true
+  IngressClass: null
+  Host: null  # Manually setting required
+  Path: /
+  PathType: Prefix
+
+
+# Configure Storage of kuboard.
+# To specify the default storage class, set these keys to 'null'.
+Storage:
+  EtcdStorageClass: null
+  KuboardStorageClass: null

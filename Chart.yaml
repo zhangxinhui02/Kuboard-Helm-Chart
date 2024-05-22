@@ -1,0 +1,9 @@
+apiVersion: v2
+name: kuboard
+description: A Helm chart for Kuboard v3.
+
+type: application
+
+version: 0.1.0
+
+appVersion: "3.5.2.6"

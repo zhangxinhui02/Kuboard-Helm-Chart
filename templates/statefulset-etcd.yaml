@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kuboard-etcd
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app: kuboard-etcd
+spec:
+  serviceName: kuboard-etcd
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kuboard-etcd
+  template:
+    metadata:
+      name: kuboard-etcd
+      labels:
+        app: kuboard-etcd
+    spec:
+      containers:
+      - name: kuboard-etcd
+        image: {{ .Values.Config.EtcdImage | quote }}
+        ports:
+        - containerPort: 2379
+          name: client
+        - containerPort: 2380
+          name: peer
+        env:
+        - name: KUBOARD_ETCD_ENDPOINTS
+          value: >-
+            kuboard-etcd-0.kuboard-etcd:2379,kuboard-etcd-1.kuboard-etcd:2379,kuboard-etcd-2.kuboard-etcd:2379
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        command:
+          - /bin/sh
+          - -c
+          - |
+            PEERS="kuboard-etcd-0=http://kuboard-etcd-0.kuboard-etcd:2380,kuboard-etcd-1=http://kuboard-etcd-1.kuboard-etcd:2380,kuboard-etcd-2=http://kuboard-etcd-2.kuboard-etcd:2380"
+            exec etcd --name ${HOSTNAME} \
+              --listen-peer-urls http://0.0.0.0:2380 \
+              --listen-client-urls http://0.0.0.0:2379 \
+              --advertise-client-urls http://${HOSTNAME}.kuboard-etcd:2379 \
+              --initial-advertise-peer-urls http://${HOSTNAME}:2380 \
+              --initial-cluster-token kuboard-etcd-cluster-1 \
+              --initial-cluster ${PEERS} \
+              --initial-cluster-state new \
+              --data-dir /data/kuboard.etcd
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      {{- if .Values.Storage.EtcdStorageClass }}
+      storageClassName: {{ .Values.Storage.EtcdStorageClass | quote }}
+      {{- end }}
+      accessModes: [ "ReadWriteMany" ]
+      resources:
+        requests:
+          storage: 5Gi
