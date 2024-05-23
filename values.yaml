@@ -10,8 +10,8 @@ Config:
 # It is helpful when using a reverse proxy.
 Frontend:
   Endpoint: null
-  AgentServerTcp: 30081
-  AgentServerUdp: 30082
+  AgentServerTcp: null
+  AgentServerUdp: null
 
 
 # Configure service of Kuboard.
