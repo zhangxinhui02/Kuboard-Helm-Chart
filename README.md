@@ -2,6 +2,8 @@
 
 A helm chart for kuboard v3.
 
+[中文](./README_zh.md) | [English](./README.md)
+
 Kuboard: [Official Site](https://kuboard.cn/) | [Official Install Guide](https://kuboard.cn/install/v3/install-in-k8s.html#%E6%96%B9%E6%B3%95%E4%BA%8C-%E4%BD%BF%E7%94%A8-storageclass-%E6%8F%90%E4%BE%9B%E6%8C%81%E4%B9%85%E5%8C%96)
 
 *There are several errors in the official yaml file provided by Kuboard. This chart has corrected these errors.*
@@ -39,7 +41,7 @@ See all values in [`values.yaml`](./values.yaml).
 - `Ingress.Host`: **Manually setting required unless `Ingress.Enable` was set to `false`.** Configure ingress host of Kuboard, for example: `kuboard.example.com`.
 
 
-- `Service.*`: Configure service ports of Kuboard. To disable NodePort, set `NodePort` to `null`. If NodePorts of agent server are set to `null`, the agent server will not be available unless port-forward configured.
+- `Service.*`: Configure service ports of Kuboard. To disable NodePort, set `NodePort` to `null`. If NodePorts of agent server are set to `null`, the agent server will not be available unless port-forward configured by user.
 
 
 - `Frontend.*`: These values will be used to set up the front-end page. It is helpful when using a reverse proxy.
