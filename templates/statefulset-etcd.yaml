@@ -48,7 +48,7 @@ spec:
               --data-dir /data/kuboard.etcd
   volumeClaimTemplates:
   - metadata:
-      name: data
+      name: {{ .Release.Name }}-data
     spec:
       {{- if .Values.Storage.EtcdStorageClass }}
       storageClassName: {{ .Values.Storage.EtcdStorageClass | quote }}
