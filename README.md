@@ -48,7 +48,7 @@ See all values in [`values.yaml`](./values.yaml).
 - `Frontend.Endpoint`: Entry point of frontend page. When `Ingress.Enable` is `true`, this key will be automatically set to `https://<Ingress.Host>`(Of course, it can be manually overwritten). When `Ingress.Enable` is `false`, **manually setting is required**.
 - `Frontend.AgentServerTcp`/`Frontend.AgentServerUdp`: These keys will be automatically set to `'Service.*.NodePort'`(Of course, it can be manually overwritten).
 
-## Change logs
+## Change Logs
 
 - 0.1.1: Multiple releases in one namespace are supported. You can install any number of releases to any namespace, as long as the release name is different.
 - 0.1.0: The initial chart. Can be installed in a separate namespace.

@@ -48,7 +48,7 @@ helm install kuboard mikumikumi/kuboard -n kuboard \
 - `Frontend.Endpoint`: 前端页面的入口。当`Ingress.Enable`被设置为`true`时，此值将被自动设置为`https://<Ingress.Host>`(当然，它可以被手动覆写)。当`Ingress.Enable`被设置为`false`时，**需要手动配置此值**。
 - `Frontend.AgentServerTcp`/`Frontend.AgentServerUdp`: 这些值将被自动设置为`'Service.*.NodePort'`(当然，它们可以被手动覆盖)。
 
-##  更新日日志
+##  更新日志
 
 - 0.1.1: 支持单个Namespace中的多Release。你可以安装任意数量的Release到任何Namespace，只要Release名称不同即可。
 - 0.1.0: 初始的Chart。可以被安装到独立的Namespace中。
