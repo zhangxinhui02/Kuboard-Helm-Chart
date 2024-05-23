@@ -4,29 +4,29 @@ metadata:
   annotations:
     k8s.kuboard.cn/ingress: 'false'
     k8s.kuboard.cn/service: NodePort
-    k8s.kuboard.cn/workload: kuboard-v3
+    k8s.kuboard.cn/workload: {{ .Release.Name }}-kuboard-v3
   labels:
-    k8s.kuboard.cn/name: kuboard-v3
-  name: kuboard-v3
+    k8s.kuboard.cn/name: {{ .Release.Name }}-kuboard-v3
+  name: {{ .Release.Name }}-kuboard-v3
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s.kuboard.cn/name: kuboard-v3
+      k8s.kuboard.cn/name: {{ .Release.Name }}-kuboard-v3
   template:
     metadata:
       labels:
-        k8s.kuboard.cn/name: kuboard-v3
+        k8s.kuboard.cn/name: {{ .Release.Name }}-kuboard-v3
     spec:
       containers:
         - env:
             - name: KUBOARD_ETCD_ENDPOINTS
               value: >-
-                kuboard-etcd-0.kuboard-etcd:2379,kuboard-etcd-1.kuboard-etcd:2379,kuboard-etcd-2.kuboard-etcd:2379
+                {{ .Release.Name }}-kuboard-etcd-0.{{ .Release.Name }}-kuboard-etcd:2379,{{ .Release.Name }}-kuboard-etcd-1.{{ .Release.Name }}-kuboard-etcd:2379,{{ .Release.Name }}-kuboard-etcd-2.{{ .Release.Name }}-kuboard-etcd:2379
           envFrom:
             - configMapRef:
-                name: kuboard-v3-config
+                name: {{ .Release.Name }}-kuboard-v3-config
           image: {{ .Values.Config.KuboardImage | quote }}
           imagePullPolicy: Always
           name: kuboard
@@ -36,4 +36,4 @@ spec:
       volumes:
       - name: kuboard-data
         persistentVolumeClaim:
-          claimName: kuboard-data-pvc
+          claimName: {{ .Release.Name }}-kuboard-data-pvc

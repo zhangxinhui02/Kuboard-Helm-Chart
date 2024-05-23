@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: kuboard-etcd
+  name: {{ .Release.Name }}-kuboard-etcd
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    app: kuboard-etcd
+    app: {{ .Release.Name }}-kuboard-etcd
 spec:
-  serviceName: kuboard-etcd
+  serviceName: {{ .Release.Name }}-kuboard-etcd
   replicas: 3
   selector:
     matchLabels:
-      app: kuboard-etcd
+      app: {{ .Release.Name }}-kuboard-etcd
   template:
     metadata:
-      name: kuboard-etcd
+      name: {{ .Release.Name }}-kuboard-etcd
       labels:
-        app: kuboard-etcd
+        app: {{ .Release.Name }}-kuboard-etcd
     spec:
       containers:
       - name: kuboard-etcd
@@ -28,19 +28,19 @@ spec:
         env:
         - name: KUBOARD_ETCD_ENDPOINTS
           value: >-
-            kuboard-etcd-0.kuboard-etcd:2379,kuboard-etcd-1.kuboard-etcd:2379,kuboard-etcd-2.kuboard-etcd:2379
+            {{ .Release.Name }}-kuboard-etcd-0.{{ .Release.Name }}-kuboard-etcd:2379,{{ .Release.Name }}-kuboard-etcd-1.{{ .Release.Name }}-kuboard-etcd:2379,{{ .Release.Name }}-kuboard-etcd-2.{{ .Release.Name }}-kuboard-etcd:2379
         volumeMounts:
-        - name: data
+        - name: {{ .Release.Name }}-data
           mountPath: /data
         command:
           - /bin/sh
           - -c
           - |
-            PEERS="kuboard-etcd-0=http://kuboard-etcd-0.kuboard-etcd:2380,kuboard-etcd-1=http://kuboard-etcd-1.kuboard-etcd:2380,kuboard-etcd-2=http://kuboard-etcd-2.kuboard-etcd:2380"
+            PEERS="{{ .Release.Name }}-kuboard-etcd-0=http://{{ .Release.Name }}-kuboard-etcd-0.{{ .Release.Name }}-kuboard-etcd:2380,{{ .Release.Name }}-kuboard-etcd-1=http://{{ .Release.Name }}-kuboard-etcd-1.{{ .Release.Name }}-kuboard-etcd:2380,{{ .Release.Name }}-kuboard-etcd-2=http://{{ .Release.Name }}-kuboard-etcd-2.{{ .Release.Name }}-kuboard-etcd:2380"
             exec etcd --name ${HOSTNAME} \
               --listen-peer-urls http://0.0.0.0:2380 \
               --listen-client-urls http://0.0.0.0:2379 \
-              --advertise-client-urls http://${HOSTNAME}.kuboard-etcd:2379 \
+              --advertise-client-urls http://${HOSTNAME}.{{ .Release.Name }}-kuboard-etcd:2379 \
               --initial-advertise-peer-urls http://${HOSTNAME}:2380 \
               --initial-cluster-token kuboard-etcd-cluster-1 \
               --initial-cluster ${PEERS} \

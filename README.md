@@ -12,6 +12,8 @@ Kuboard: [Official Site](https://kuboard.cn/) | [Official Install Guide](https:/
 
 ## Usage
 
+You can install any number of releases to any namespace, as long as the release name is different.
+
 ### TL;DR
 ```sh
 helm repo add mikumikumi https://chart.mikumikumi.xyz/
