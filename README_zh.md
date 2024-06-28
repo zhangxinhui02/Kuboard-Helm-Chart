@@ -18,7 +18,7 @@ Kuboard: [官方网站](https://kuboard.cn/) | [官方安装指南](https://kubo
 
 ### TL;DR
 ```sh
-helm repo add mikumikumi https://chart.mikumikumi.xyz/
+helm repo add mikumikumi https://charts.mikumikumi.xyz/
 helm repo update
 kubectl create namespace kuboard
 
@@ -48,7 +48,10 @@ helm install kuboard mikumikumi/kuboard -n kuboard \
 - `Frontend.Endpoint`: 前端页面的入口。当`Ingress.Enable`被设置为`true`时，此值将被自动设置为`https://<Ingress.Host>`(当然，它可以被手动覆写)。当`Ingress.Enable`被设置为`false`时，**需要手动配置此值**。
 - `Frontend.AgentServerTcp`/`Frontend.AgentServerUdp`: 这些值将被自动设置为`'Service.*.NodePort'`(当然，它们可以被手动覆盖)。
 
+在慢速网络/文件系统上运行Kuboard时，可能会发生超时错误。这种情况下请参考`values.yaml`中的`NodeName`和`Etcd`字段。
+
 ##  更新日志
 
+- 0.1.2: 可以指定Kuboard在特定节点上运行，以避免超时错误。Etcd的`heartbeat-interval`和`election-timeout`参数可以手动设置。
 - 0.1.1: 支持单个Namespace中的多Release。你可以安装任意数量的Release到任何Namespace，只要Release名称不同即可。
 - 0.1.0: 初始的Chart。可以被安装到独立的Namespace中。

@@ -45,3 +45,19 @@ Ingress:
 Storage:
   EtcdStorageClass: null
   KuboardStorageClass: null
+
+
+# Run Kuboard on the specified nodes.
+# When running Kuboard on a slow network/filesystem, this can avoid timeouts.
+# To not specify the nodes, set these keys to 'null'.
+NodeName:
+  Etcd: null
+  Kuboard: null
+
+
+# Configure the init parameters for the Etcd cluster.
+# When running Kuboard on a slow network/filesystem, this can avoid timeouts.
+# To not specify the parameters, set these keys to 'null'.
+Etcd:
+  HeartbeatInterval: null
+  ElectionTimeout: null
