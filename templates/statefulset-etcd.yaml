@@ -18,7 +18,7 @@ spec:
         app: {{ .Release.Name }}-kuboard-etcd
     spec:
       {{- if .Values.NodeName.Etcd }}
-      nodeName: akemihomura
+      nodeName: {{ .Values.NodeName.Kuboard |quote }}
       {{- end }}
       containers:
       - name: kuboard-etcd
