@@ -52,6 +52,7 @@ When running Kuboard on a slow network/file system, timeout errors may occur. In
 
 ## Change Logs
 
+- 0.1.3: Change default kuboard image to newest 3.5.2.7. Wrong nodeName template of Etcd StatefulSet was fixed.
 - 0.1.2: Kuboard can be specified to run on specific nodes to avoid timeout error. The `heartbeat-interval` and `election-timeout` parameters of Etcd can be manually set.
 - 0.1.1: Multiple releases in one namespace are supported. You can install any number of releases to any namespace, as long as the release name is different.
 - 0.1.0: The initial chart. Can be installed in a separate namespace.

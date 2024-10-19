@@ -52,6 +52,7 @@ helm install kuboard mikumikumi/kuboard -n kuboard \
 
 ##  更新日志
 
+- 0.1.3: 切换默认Kuboard镜像为最新版3.5.2.7。修复了Etcd StatefulSet中错误的nodeName模板。
 - 0.1.2: 可以指定Kuboard在特定节点上运行，以避免超时错误。Etcd的`heartbeat-interval`和`election-timeout`参数可以手动设置。
 - 0.1.1: 支持单个Namespace中的多Release。你可以安装任意数量的Release到任何Namespace，只要Release名称不同即可。
 - 0.1.0: 初始的Chart。可以被安装到独立的Namespace中。

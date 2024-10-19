@@ -1,7 +1,7 @@
 # Configure installation parameters and Kuboard running parameters.
 Config:
   EtcdImage: swr.cn-east-2.myhuaweicloud.com/kuboard/etcd:v3.4.14
-  KuboardImage: swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard:v3.5.2.6
+  KuboardImage: swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard:v3.5.2.7
   ServerLogrusLevel: info
   AgentKey: 32b7d6572c6255211b4eec9009e4a816
 
