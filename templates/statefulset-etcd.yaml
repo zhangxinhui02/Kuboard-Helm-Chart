@@ -18,7 +18,7 @@ spec:
         app: {{ .Release.Name }}-kuboard-etcd
     spec:
       {{- if .Values.NodeName.Etcd }}
-      nodeName: {{ .Values.NodeName.Kuboard |quote }}
+      nodeName: {{ .Values.NodeName.Etcd | quote }}
       {{- end }}
       containers:
       - name: kuboard-etcd
