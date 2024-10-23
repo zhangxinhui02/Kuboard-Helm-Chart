@@ -1,0 +1,12 @@
+stages:
+- update-repo
+
+update-repo-job:
+  stage: update-repo
+  image: reg.mikumikumi.xyz/mirror/helm:latest
+  script:
+    - CHART_PATH=$(pwd)
+    - cd /
+    - helm registry login reg.mikumikumi.xyz -u ${HELM_REGISTRY_USER} -p ${HELM_REGISTRY_PASSWORD}
+    - helm package ${CHART_PATH}
+    - helm push kuboard-*.tgz oci://reg.mikumikumi.xyz/charts

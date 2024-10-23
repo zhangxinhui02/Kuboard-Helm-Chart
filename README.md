@@ -1,58 +1,61 @@
 # Kuboard Helm Chart
 
-A helm chart for kuboard v3.
+一个用于安装Kuboard v3的Helm Chart。
 
-[中文](./README_zh.md) | [English](./README.md)
+[中文](./README.md) | [English](./README_en.md)
 
-Kuboard: [Official Site](https://kuboard.cn/) | [Official Install Guide](https://kuboard.cn/install/v3/install-in-k8s.html#%E6%96%B9%E6%B3%95%E4%BA%8C-%E4%BD%BF%E7%94%A8-storageclass-%E6%8F%90%E4%BE%9B%E6%8C%81%E4%B9%85%E5%8C%96)
+Kuboard: [官方网站](https://kuboard.cn/) | [官方安装指南](https://kuboard.cn/install/v3/install-in-k8s.html#%E6%96%B9%E6%B3%95%E4%BA%8C-%E4%BD%BF%E7%94%A8-storageclass-%E6%8F%90%E4%BE%9B%E6%8C%81%E4%B9%85%E5%8C%96)
 
-*There are several errors in the official yaml file provided by Kuboard. This chart has corrected these errors.*
+*Kuboard官方提供的yaml文件中有几个错误。此Chart已更正了这些错误。*
 
-**This is NOT an official helm chart. Use it at your own risk.**
+**这不是官方Chart。使用时风险自负。**
 
 ---
 
-## Usage
+## 使用方法
 
-You can install any number of releases to any namespace, as long as the release name is different.
+你可以安装任意数量的Release到任何Namespace，只要Release名称不同即可。
+
+此helm chart的OCI Artifacts地址为：`oci://reg.mikumikumi.xyz/charts/kuboard`
+
+[了解Helm基于OCI的注册中心的使用方法](https://helm.sh/zh/docs/topics/registries/)
 
 ### TL;DR
 ```sh
-helm repo add mikumikumi https://charts.mikumikumi.xyz/
-helm repo update
 kubectl create namespace kuboard
 
-helm install kuboard mikumikumi/kuboard -n kuboard \
+helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/charts/kuboard \
     --set Ingress.Host=kuboard.example.com
 ```
 
-### Important Values
+### 重要的Values
 
-See all values in [`values.yaml`](./values.yaml).
+在[`values.yaml`](./values.yaml)查看所有可配置的Values。
 
-- `Config.AgentKey`: **Recommended to manually set.** This is the key used by the Agent to communicate with Kuboard. Please manually specify as any 32-bit string containing letters and numbers. After this key change, the Kuboard Agent needs to be deleted and re imported. Default to `32b7d6572c6255211b4eec9009e4a816`.
-
-
-- `Storage.EtcdStorageClass`/`Storgae.KuboardStorageClass`: Specify storage class of Etcd and Kuboard. To specify the default storage class, set these keys to `null`. Default to `null`.
+- `Config.AgentKey`: **建议自行配置。** 这是Agent与Kuboard通信时的密钥。请修改为一个任意的包含字母、数字的32位字符串。此密钥变更后，需要删除Kuboard Agent重新导入。默认值为`32b7d6572c6255211b4eec9009e4a816`。
 
 
-- `Ingress.Enable`: Whether enable or disable the ingress. Default to `true`.
-- `Ingress.IngressClass`: Specify ingress class of Kuboard. To specify the default ingress class, set it to `null`. Default to `null`.
-- `Ingress.Host`: **Manually setting required unless `Ingress.Enable` was set to `false`.** Configure ingress host of Kuboard, for example: `kuboard.example.com`.
+- `Storage.EtcdStorageClass`/`Storgae.KuboardStorageClass`: 指定Etcd和Kuboard使用的存储类。设置为`null`代表默认存储类。默认值为`null`。
 
 
-- `Service.*`: Configure service ports of Kuboard. To disable NodePort, set `NodePort` to `null`. If NodePorts of agent server are set to `null`, the agent server will not be available unless port-forward configured by user.
+- `Ingress.Enable`: 是否启用Ingress。默认值为`true`。
+- `Ingress.IngressClass`: 指定Kuboard使用的存储类。设置为`null`代表默认Ingress Class。默认值为`null`。
+- `Ingress.Host`: **需要手动配置，除非`Ingress.Enable`的值为`false`。** 配置Kuboard的Ingress Host，例如`kuboard.example.com`。
 
 
-- `Frontend.*`: These values will be used to set up the front-end page. It is helpful when using a reverse proxy.
-- `Frontend.Endpoint`: Entry point of frontend page. When `Ingress.Enable` is `true`, this key will be automatically set to `https://<Ingress.Host>`(Of course, it can be manually overwritten). When `Ingress.Enable` is `false`, **manually setting is required**.
-- `Frontend.AgentServerTcp`/`Frontend.AgentServerUdp`: These keys will be automatically set to `'Service.*.NodePort'`(Of course, it can be manually overwritten).
+- `Service.*`: 配置Kuboard Service的各个端口。若想禁用NodePort，可以将`NodePort`配置为`null`。如果Agent Server的NodePort被配置为`null`，则Agent Server将不可用，除非自行配置了端口转发。
 
-When running Kuboard on a slow network/file system, timeout errors may occur. In this case, please refer to field `NodeName` and `Etcd` in `values.yaml`.
 
-## Change Logs
+- `Frontend.*`: 这些值被用于配置前端页面。这在使用反向代理时会有帮助。
+- `Frontend.Endpoint`: 前端页面的入口。当`Ingress.Enable`被设置为`true`时，此值将被自动设置为`https://<Ingress.Host>`(当然，它可以被手动覆写)。当`Ingress.Enable`被设置为`false`时，**需要手动配置此值**。
+- `Frontend.AgentServerTcp`/`Frontend.AgentServerUdp`: 这些值将被自动设置为`'Service.*.NodePort'`(当然，它们可以被手动覆盖)。
 
-- 0.1.3: Change default kuboard image to newest 3.5.2.7. Wrong nodeName template of Etcd StatefulSet was fixed.
-- 0.1.2: Kuboard can be specified to run on specific nodes to avoid timeout error. The `heartbeat-interval` and `election-timeout` parameters of Etcd can be manually set.
-- 0.1.1: Multiple releases in one namespace are supported. You can install any number of releases to any namespace, as long as the release name is different.
-- 0.1.0: The initial chart. Can be installed in a separate namespace.
+在慢速网络/文件系统上运行Kuboard时，可能会发生超时错误。这种情况下请参考`values.yaml`中的`NodeName`和`Etcd`字段。
+
+##  更新日志
+
+- 0.1.4: 修改了chart存储位置和部署方式。修复了Etcd StatefulSet的pvc的错误引用。
+- 0.1.3: 切换默认Kuboard镜像为最新版`3.5.2.7`。修复了Etcd StatefulSet中错误的nodeName模板。
+- 0.1.2: 可以指定Kuboard在特定节点上运行，以避免超时错误。Etcd的`heartbeat-interval`和`election-timeout`参数可以手动设置。
+- 0.1.1: 支持单个Namespace中的多Release。你可以安装任意数量的Release到任何Namespace，只要Release名称不同即可。
+- 0.1.0: 初始的Chart。可以被安装到独立的Namespace中。
