@@ -54,6 +54,7 @@ helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/charts/kuboard \
 
 ##  更新日志
 
+- 0.1.5: 将指定节点的方案从`nodeName`修改为`nodeSelector.kubernetes.io/hostname`选择器。
 - 0.1.4: 修改了chart存储位置和部署方式。修复了Etcd StatefulSet的pvc的错误引用。
 - 0.1.3: 切换默认Kuboard镜像为最新版`3.5.2.7`。修复了Etcd StatefulSet中错误的nodeName模板。
 - 0.1.2: 可以指定Kuboard在特定节点上运行，以避免超时错误。Etcd的`heartbeat-interval`和`election-timeout`参数可以手动设置。

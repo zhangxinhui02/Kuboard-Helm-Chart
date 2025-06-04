@@ -19,8 +19,9 @@ spec:
       labels:
         k8s.kuboard.cn/name: {{ .Release.Name }}-kuboard-v3
     spec:
-      {{- if .Values.NodeName.Kuboard }}
-      nodeName: {{ .Values.NodeName.Kuboard |quote }}
+      {{- if .Values.NodeSelectorHostname.Kuboard }}
+      nodeSelector:
+        kubernetes.io/hostname: {{ .Values.NodeSelectorHostname.Kuboard |quote }}
       {{- end }}
       containers:
         - env:

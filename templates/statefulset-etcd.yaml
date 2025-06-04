@@ -17,8 +17,9 @@ spec:
       labels:
         app: {{ .Release.Name }}-kuboard-etcd
     spec:
-      {{- if .Values.NodeName.Etcd }}
-      nodeName: {{ .Values.NodeName.Etcd | quote }}
+      {{- if .Values.NodeSelectorHostname.Etcd }}
+      nodeSelector:
+        kubernetes.io/hostname: {{ .Values.NodeSelectorHostname.Etcd | quote }}
       {{- end }}
       containers:
       - name: kuboard-etcd

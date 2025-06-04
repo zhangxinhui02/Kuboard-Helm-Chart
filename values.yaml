@@ -50,7 +50,7 @@ Storage:
 # Run Kuboard on the specified nodes.
 # When running Kuboard on a slow network/filesystem, this can avoid timeouts.
 # To not specify the nodes, set these keys to 'null'.
-NodeName:
+NodeSelectorHostname:
   Etcd: null
   Kuboard: null
 
