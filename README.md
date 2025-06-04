@@ -50,7 +50,7 @@ helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/charts/kuboard \
 - `Frontend.Endpoint`: 前端页面的入口。当`Ingress.Enable`被设置为`true`时，此值将被自动设置为`https://<Ingress.Host>`(当然，它可以被手动覆写)。当`Ingress.Enable`被设置为`false`时，**需要手动配置此值**。
 - `Frontend.AgentServerTcp`/`Frontend.AgentServerUdp`: 这些值将被自动设置为`'Service.*.NodePort'`(当然，它们可以被手动覆盖)。
 
-在慢速网络/文件系统上运行Kuboard时，可能会发生超时错误。这种情况下请参考`values.yaml`中的`NodeName`和`Etcd`字段。
+在慢速网络/文件系统上运行Kuboard时，可能会发生超时错误。这种情况下请参考`values.yaml`中的`NodeSelectorHostname`和`Etcd`字段。
 
 ##  更新日志
 

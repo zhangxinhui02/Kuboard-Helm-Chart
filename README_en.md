@@ -50,7 +50,7 @@ See all values in [`values.yaml`](./values.yaml).
 - `Frontend.Endpoint`: Entry point of frontend page. When `Ingress.Enable` is `true`, this key will be automatically set to `https://<Ingress.Host>`(Of course, it can be manually overwritten). When `Ingress.Enable` is `false`, **manually setting is required**.
 - `Frontend.AgentServerTcp`/`Frontend.AgentServerUdp`: These keys will be automatically set to `'Service.*.NodePort'`(Of course, it can be manually overwritten).
 
-When running Kuboard on a slow network/file system, timeout errors may occur. In this case, please refer to field `NodeName` and `Etcd` in `values.yaml`.
+When running Kuboard on a slow network/file system, timeout errors may occur. In this case, please refer to field `NodeSelectorHostname` and `Etcd` in `values.yaml`.
 
 ## Change Logs
 
