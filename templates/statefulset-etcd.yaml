@@ -63,7 +63,7 @@ spec:
       {{- if .Values.Storage.EtcdStorageClass }}
       storageClassName: {{ .Values.Storage.EtcdStorageClass | quote }}
       {{- end }}
-      accessModes: [ "ReadWriteMany" ]
+      accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:
           storage: 5Gi

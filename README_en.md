@@ -54,6 +54,7 @@ When running Kuboard on a slow network/file system, timeout errors may occur. In
 
 ## Change Logs
 
+- 0.1.6: Change the accessMode of Etcd's PVC to `ReadWriteOnce`.
 - 0.1.5: Change the scheme for specifying node from `nodeName` to `nodeSelector.kubernete.io/hostname` selector.
 - 0.1.4: Modified the storage location and deployment method of the chart. Fixed the incorrect referencing of PVC in Etcd StatefulSet.
 - 0.1.3: Change default kuboard image to newest 3.5.2.7. Wrong nodeName template of Etcd StatefulSet was fixed.

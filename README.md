@@ -54,6 +54,7 @@ helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/charts/kuboard \
 
 ##  更新日志
 
+- 0.1.6: 修改Etcd的PVC的访问模式为`ReadWriteOnce`。
 - 0.1.5: 将指定节点的方案从`nodeName`修改为`nodeSelector.kubernetes.io/hostname`选择器。
 - 0.1.4: 修改了chart存储位置和部署方式。修复了Etcd StatefulSet的pvc的错误引用。
 - 0.1.3: 切换默认Kuboard镜像为最新版`3.5.2.7`。修复了Etcd StatefulSet中错误的nodeName模板。
