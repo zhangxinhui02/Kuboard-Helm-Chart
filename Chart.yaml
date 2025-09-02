@@ -4,6 +4,6 @@ description: A Helm chart for Kuboard v3.
 
 type: application
 
-version: 0.1.6
+version: 0.1.7
 
-appVersion: "3.5.2.7"
+appVersion: "3.5.2.9"

@@ -16,7 +16,7 @@ Kuboard: [官方网站](https://kuboard.cn/) | [官方安装指南](https://kubo
 
 你可以安装任意数量的Release到任何Namespace，只要Release名称不同即可。
 
-此helm chart的OCI Artifacts地址为：`oci://reg.mikumikumi.xyz/charts/kuboard`
+此helm chart的OCI Artifacts地址为：`oci://reg.mikumikumi.xyz/zhangxinhui02/kuboard`
 
 [了解Helm基于OCI的注册中心的使用方法](https://helm.sh/zh/docs/topics/registries/)
 
@@ -24,7 +24,7 @@ Kuboard: [官方网站](https://kuboard.cn/) | [官方安装指南](https://kubo
 ```sh
 kubectl create namespace kuboard
 
-helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/charts/kuboard \
+helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/zhangxinhui02/kuboard \
     --set Ingress.Host=kuboard.example.com
 ```
 
@@ -54,6 +54,7 @@ helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/charts/kuboard \
 
 ##  更新日志
 
+- 0.1.7: 更新Kuboard版本为`v3.5.2.9`，更新Chart发布地址。
 - 0.1.6: 修改Etcd的PVC的访问模式为`ReadWriteOnce`。
 - 0.1.5: 将指定节点的方案从`nodeName`修改为`nodeSelector.kubernetes.io/hostname`选择器。
 - 0.1.4: 修改了chart存储位置和部署方式。修复了Etcd StatefulSet的pvc的错误引用。

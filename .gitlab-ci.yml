@@ -9,4 +9,4 @@ update-repo-job:
     - cd /
     - helm registry login reg.mikumikumi.xyz -u ${HELM_REGISTRY_USER} -p ${HELM_REGISTRY_PASSWORD}
     - helm package ${CHART_PATH}
-    - helm push kuboard-*.tgz oci://reg.mikumikumi.xyz/charts
+    - helm push kuboard-*.tgz oci://reg.mikumikumi.xyz/zhangxinhui02

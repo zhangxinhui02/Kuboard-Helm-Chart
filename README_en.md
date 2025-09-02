@@ -16,7 +16,7 @@ Kuboard: [Official Site](https://kuboard.cn/) | [Official Install Guide](https:/
 
 You can install any number of releases to any namespace, as long as the release name is different.
 
-The OCI Artifacts address for this helm chart is: `oci://reg.mikumikumi.xyz/charts/kuboard`
+The OCI Artifacts address for this helm chart is: `oci://reg.mikumikumi.xyz/zhangxinhui02/kuboard`
 
 [Learn about the usage of Helm's OCI-based registries](https://helm.sh/docs/topics/registries/)
 
@@ -24,7 +24,7 @@ The OCI Artifacts address for this helm chart is: `oci://reg.mikumikumi.xyz/char
 ```sh
 kubectl create namespace kuboard
 
-helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/charts/kuboard \
+helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/zhangxinhui02/kuboard \
     --set Ingress.Host=kuboard.example.com
 ```
 
@@ -54,6 +54,7 @@ When running Kuboard on a slow network/file system, timeout errors may occur. In
 
 ## Change Logs
 
+- 0.1.7: Update Kuboard version to `v3.5.2.9`. Update release url of chart.
 - 0.1.6: Change the accessMode of Etcd's PVC to `ReadWriteOnce`.
 - 0.1.5: Change the scheme for specifying node from `nodeName` to `nodeSelector.kubernete.io/hostname` selector.
 - 0.1.4: Modified the storage location and deployment method of the chart. Fixed the incorrect referencing of PVC in Etcd StatefulSet.
