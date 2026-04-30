@@ -54,6 +54,7 @@ When running Kuboard on a slow network/file system, timeout errors may occur. In
 
 ## Change Logs
 
+- 0.1.8: Add TLS support for ingress.
 - 0.1.7: Update Kuboard version to `v3.5.2.9`. Update release url of chart.
 - 0.1.6: Change the accessMode of Etcd's PVC to `ReadWriteOnce`.
 - 0.1.5: Change the scheme for specifying node from `nodeName` to `nodeSelector.kubernete.io/hostname` selector.

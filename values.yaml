@@ -38,6 +38,11 @@ Ingress:
   Host: null  # Manually setting required
   Path: /
   PathType: Prefix
+  Tls:
+    Enabled: false
+    SecretName: kuboard-tls
+    CertManagerIssuerType: null  # null / ClusterIssuer / Issuer
+    IssuerName: null
 
 
 # Configure Storage of kuboard.

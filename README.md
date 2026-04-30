@@ -54,6 +54,7 @@ helm install -n kuboard kuboard oci://reg.mikumikumi.xyz/zhangxinhui02/kuboard \
 
 ##  更新日志
 
+- 0.1.8: 为Ingress添加了TLS支持。
 - 0.1.7: 更新Kuboard版本为`v3.5.2.9`，更新Chart发布地址。
 - 0.1.6: 修改Etcd的PVC的访问模式为`ReadWriteOnce`。
 - 0.1.5: 将指定节点的方案从`nodeName`修改为`nodeSelector.kubernetes.io/hostname`选择器。

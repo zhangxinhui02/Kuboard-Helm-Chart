@@ -77,6 +77,15 @@ kind: Ingress
 metadata:
   name: {{ .Release.Name }}-kuboard-v3
   namespace: {{ .Release.Namespace | quote }}
+  {{ if and .Values.Ingress.Tls.Enabled .Values.Ingress.Tls.CertManagerIssuerType }}
+  annotations:
+    {{ if eq .Values.Ingress.Tls.CertManagerIssuerType "ClusterIssuer" }}
+    cert-manager.io/cluster-issuer: {{ .Values.Ingress.Tls.IssuerName | quote }}
+    {{- end }}
+    {{ if eq .Values.Ingress.Tls.CertManagerIssuerType "Issuer" }}
+    cert-manager.io/issuer: {{ .Values.Ingress.Tls.IssuerName | quote }}
+    {{- end }}
+  {{- end }}
 spec:
   {{- if .Values.Ingress.IngressClass }}
   ingressClassName: {{ .Values.Ingress.IngressClass | quote }}
@@ -92,4 +101,10 @@ spec:
               number: {{ .Values.Service.Webui.Port }}
         path: {{ .Values.Ingress.Path | quote }}
         pathType: {{ .Values.Ingress.PathType | quote }}
+  {{ if .Values.Ingress.Tls.Enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.Ingress.Host | quote }}
+      secretName: {{ .Values.Ingress.Tls.SecretName | quote }}
+  {{- end }}
 {{- end }}
